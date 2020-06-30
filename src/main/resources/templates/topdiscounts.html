@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head th:replace="home :: head">
+  </head>
+<body>
+<div class="container">
+	<div th:replace="home :: jumbotron">
+	</div>
+	<nav th:replace="home :: navbar">
+	</nav>
+	<br>
+	<form th:replace="home :: searchbar"/>
+	<a th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'limit=7')}"
+				class="btn btn-info btn-sm">Last 7 days </a>
+				
+	<a th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'limit=30')}"
+				class="btn btn-info btn-sm">Last 30 days</a>
+	<a th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'limit=0')}"
+				class="btn btn-info btn-sm">All-time</a>
+	<br>
+	<br>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark" align="center">
+		
+			<tr>
+				<th>Name
+				<a class="fas fa-caret-up" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=nameAsc')}"></a>
+				<a class="fas fa-caret-down" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=nameDesc')}"></a>
+				</th>
+				<th>Device</th>
+				<th>Type</th>
+				<th>Price
+				<a class="fas fa-caret-up" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=priceAsc')}"></a>
+				<a class="fas fa-caret-down" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=priceDesc')}"></a>
+				</th>
+				
+				<th class="text-nowrap">Price Change
+				<span>
+				<a class="fas fa-caret-up" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=priceChangeAsc')}"></a>
+				<a class="fas fa-caret-down" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=priceChangeDesc')}"></a>
+				</span>
+				</th>
+				
+				<th class="text-nowrap">Last change
+				<a class="fas fa-caret-up" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=changeAsc')}"></a>
+				<a class="fas fa-caret-down" th:href="@{/playstation-store-games/top-discounts/}+${@produceNewParam.getParams(parameters,'order=changeDesc')}"></a>
+				</th>
+				<th>History</th>
+				<th>PS Store</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			<tr  th:each="tempGame, iterStats: ${games}">
+
+				<td th:text="${truncName.get(iterStats.index)}"  data-toggle="tooltip" data-placement="top" th:title="${tempGame.name}"/>
+				<td th:text="${tempGame.device}" />
+				<td th:text="${tempGame.type}" />
+				<td style="text-align:center" th:text="${tempGame.price}" />
+				<td style="text-align:center" th:text="${priceChangeFormatted.get(iterStats.index)}" />
+				<td style="text-align:center" th:text="${maxDate.get(iterStats.index)}" />
+			
+				<td style="text-align:center"><a th:href="@{/playstation-store-games/history/(id=${tempGame.id})}" 
+				class="btn btn-info btn-sm">History</a>
+				</td>
+				<td style="text-align:center"><a th:href="@{'https://store.playstation.com/en-us/product/'+${tempGame.id}}" target="_blank" 
+				class="btn btn-info btn-sm">PS</a>
+				</td>
+			</tr>
+
+		</tbody>
+
+
+
+	</table>
+	
+<div th:replace="home :: pagination">
+</div>
+	
+</div>
+
+
+
+
+
+  </body>
+
+
+	
+
+</html>
