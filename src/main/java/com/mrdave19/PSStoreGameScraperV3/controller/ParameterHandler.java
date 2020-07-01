@@ -16,7 +16,8 @@ public class ParameterHandler {
 		return new NewParam();
 }
 	
-		
+	// new param creation
+	//i.e. currentParama'?first=2&second=3' and newParam 'third=4' gives output: '?first=2&second=3&third=4'
 	class NewParam{
 		public String getParams(String currentParams, String newParam) {
 			if(currentParams==null) return "?" +newParam;
